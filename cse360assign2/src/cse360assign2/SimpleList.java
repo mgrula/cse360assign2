@@ -1,7 +1,7 @@
-// Name: Meredith Grula
-// Class ID: 390
-// Assignment 1: This program creates an array of size 10, and allows you to add, remove, search,
-// 			print to string and find out the length of the array
+/* Name: Meredith Grula
+   Class ID: 390
+   Assignment 2: This program creates an array of size 10, and allows you to add, remove, search,
+ 			print to string and find out the length of the array*/
 package cse360assign2;
 
 import java.util.*;
@@ -20,8 +20,12 @@ public class SimpleList {
 	// Add parameter to the list at the beginning and move all other integers over
 	public void add(int newInt)
 	{
+		if (list[list.length - 1] != 0)
+		{
+			list = Arrays.copyOf(list, (list.length + (list.length / 2))); // increases array by 50%
+		}
 		
-		for (int i = 9; i > 0; i--)
+		for (int i = list.length - 1; i > 0; i--)
 		{
 			list[i] = list[i - 1];
 		}
@@ -33,11 +37,11 @@ public class SimpleList {
 	// If the parameter is in the list, then remove it
 	public void remove(int parameter)
 	{
-		for (int i = 0; i < 10; i++)
+		for (int i = 0; i < list.length; i++)
 		{
 			if (list[i] == parameter)
 			{
-				for (int j = i; j < 9; j++)
+				for (int j = i; j < list.length - 1; j++)
 				{
 					list[j] = list[j + 1];	
 				}
@@ -45,6 +49,64 @@ public class SimpleList {
 				break;
 			}
 		}
+		
+		//decrease size of array if more than 25% of the array is empty
+		int emptyCount = 0;
+		for (int i = 0; i < list.length - 1; i++)
+		{
+			if (list[i] == 0)
+			{
+				emptyCount++;
+			}
+		}
+		
+		if (emptyCount > (list.length * 0.25))
+		{
+			list = Arrays.copyOf(list, (list.length - (int)Math.floor(list.length * 0.25)));
+		}
+	}
+	
+	//append the parameter to the end of the list
+	public void append(int parameter)
+	{
+		
+		//increases size of array by 50% if array is full
+		if (list[list.length - 1] != 0)
+		{
+			list = Arrays.copyOf(list, (list.length + (list.length / 2))); // increases array by 50%
+		}
+		
+		for (int i = 0; i < list.length; i++)
+		{
+			if (list[i] == 0)
+			{
+				list[i] = parameter;
+				count++;
+				break;
+			}
+	
+		}
+	}
+	
+	//return first element in list
+	public int first()
+	{
+		return list[0];
+	}
+	
+	//return current number of possible locations in the list
+	public int size()
+	{
+		int size = 0;
+		for (int i = 0; i < list.length; i++)
+		{
+			if (list[i] != 0)
+			{
+				size++;
+			}
+		}
+		
+		return size;
 	}
 	
 	//return the number of elements in a list

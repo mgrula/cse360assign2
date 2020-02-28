@@ -1,6 +1,6 @@
-// Name: Meredith Grula
-// Class ID: 390
-// Assignment 1: This is the test class for the SimpleList class
+/* Name: Meredith Grula
+  Class ID: 390
+  Assignment 2: This is the test class for the SimpleList class*/
 package cse360assign2;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -15,7 +15,15 @@ class SimpleListTest {
 		SimpleList newList = new SimpleList();
 		assertNotNull(newList);
 	}
-
+	
+	//tests that the constructor initializes count to 0
+	@Test
+	void testSimpleListCount()
+	{
+		SimpleList newList = new SimpleList();
+		assertEquals(0, newList.count);
+	}
+	
 	//tests the add function for the first value
 	@Test
 	void testAdd() {
@@ -134,6 +142,90 @@ class SimpleListTest {
 		
 		int result = newList.search(4);
 		assertEquals(0, result);
+	}
+	
+	//assignment 2 tests
+	
+	//tests that the list length increases by 50% if the list is full
+	@Test
+	public void testAddIncreasesBy50PercentIfListIsFull()
+	{
+		SimpleList newList = new SimpleList();
+		for (int i = 0; i <= newList.list.length; i++)
+		{
+			newList.add(i);
+		}
+		newList.add(11);
+		assertEquals(15, newList.list.length);
+	}
+	
+	//tests that the list decreases by 25% if more than 25% is empty when remove is called
+	@Test
+	public void testRemoveDecreasesListLength()
+	{
+		SimpleList newList = new SimpleList();
+		newList.add(1);
+		newList.add(2);
+		newList.remove(2);
+		assertEquals(8, newList.list.length);
+	}
+	
+	//tests that append adds value to end of list instead of beginning 
+	@Test
+	public void testAppend()
+	{
+		SimpleList newList = new SimpleList();
+		newList.add(3);
+		newList.add(4);
+		newList.append(2);
+		assertEquals(2, newList.list[2]);
+	}
+	
+	//tests that append will add to beginning of list if the list is empty
+	@Test
+	public void testAppendToEmptyList()
+	{
+		SimpleList newList = new SimpleList();
+		newList.append(1);
+		assertEquals(1, newList.list[0]);
+	}
+	
+	//tests that first returns the first value of the list
+	@Test
+	public void testFirst()
+	{
+		SimpleList newList = new SimpleList();
+		newList.add(1);
+		newList.add(2);
+		newList.add(3);
+		assertEquals(3, newList.first());
+	}
+	
+	//tests that first returns 0 if list is empty
+	@Test
+	public void testFirstEmptyList()
+	{
+		SimpleList newList = new SimpleList();
+		assertEquals(0, newList.first());
+	}
+	
+	//tests that size returns the size of the list
+	@Test
+	public void testSize()
+	{
+		SimpleList newList = new SimpleList();
+		newList.add(1);
+		newList.add(2);
+		newList.add(3);
+		assertEquals(3,  newList.size());
+	}
+	
+	//tests that size returns 0 if list is empty
+	@Test
+	public void testSizeEmptyList()
+	{
+		SimpleList newList = new SimpleList();
+		assertEquals(0, newList.size());
 	}
 		
 
